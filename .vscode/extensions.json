@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+        // Mandatory for good Python
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.vscode-pylance",
+        "ms-python.mypy-type-checker",
+        "charliermarsh.ruff",
+
+        // Bonus
+        "tamasfe.even-better-toml",
+        "aaron-bond.better-comments",
+        "github.copilot",
+        "Meezilla.json"
+    ]
+}

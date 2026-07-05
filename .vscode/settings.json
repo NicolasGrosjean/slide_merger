@@ -1,0 +1,28 @@
+{
+    "[python]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "charliermarsh.ruff",
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit" //  sometimes duplicate lines, put never or uninstall isort
+      }
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/Scripts/python.exe",
+    "files.exclude": {
+        "**/.idea": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/test-reports": true,
+        "**/*.pyc": true,
+        "**/*.coverage": true,
+        "**/.mypy_cache": true,
+        "**/.ruff_cache": true,
+        "**/*.egg-info": true,
+        "**/htmlcov": true
+    },
+    "python.testing.pytestArgs": [
+      "backend/tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
