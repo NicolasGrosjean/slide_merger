@@ -85,6 +85,7 @@ repos:
 
       - id: mypy
         name: MyPy
-        entry: uv run mypy
+        entry: sh -c 'cd backend && uv run mypy --install-types --non-interactive .'
         language: system
+        pass_filenames: false
         types: [python]

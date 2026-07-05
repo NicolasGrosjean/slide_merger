@@ -1,4 +1,4 @@
-﻿# Slide Merger Backend
+# Slide Merger Backend
 
 > Python backend of Slide Merger
 
@@ -6,9 +6,42 @@ We assume you are in the `backend` subdirectory when running commands.
 
 ## Install
 
-This project use [uv](https://docs.astral.sh/uv/), an extremely fast Python package and project manager, written in Rust.
+### libgdiplus
 
-```shell
+**Windows** :
+
+Nothing to do, already packaged in the system.
+
+**Ubuntu** :
+
+```bash
+sudo apt-get install libgdiplus
+```
+
+**MacOS** :
+
+```bash
+brew install mono-libgdiplus
+```
+
+### .Net runtime
+
+**Ubuntu** :
+
+```bash
+sudo apt-get install aspnetcore-runtime-8.0
+```
+
+**Other systems** :
+
+Install form [Microsoft.com](https://dotnet.microsoft.com/download/dotnet/8.0).
+
+### Python environment
+
+This project use [uv](https://docs.astral.sh/uv/),
+an extremely fast Python package and project manager, written in Rust.
+
+```bash
 uv sync
 ```
 
@@ -30,11 +63,11 @@ source .venv/bin/activate
 
 ## Configure
 
-**TODO**
+**TODO** Configuration net set yet
 
 ## Run
 
-**TODO**
+**TODO** Main file not done yet
 
 ## Tests
 
