@@ -1,0 +1,127 @@
+[project]
+name = "slide_merger_cli"
+description = "CLI of the Slide Merger project"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "GROSJEAN_Nicolas", email = "grosjen@hotmail.fr"}
+]
+# version managed by versioningit through git tags
+dynamic = ["version"]
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+requires-python = ">=3.14"
+dependencies = [
+    "click>=8.4.2,<9",
+    "loguru>=0.7.3,<1",
+    "prompt-toolkit>=3.0.52,<4",
+    "rapidfuzz>=3.14.5,<4",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.14.1,<2",
+    "pre-commit>=4.1.0,<5",
+    "pytest>=8.3.4,<9",
+    "pytest-cov>=6.0.0,<7",
+    "pytest-mock>=3.14.0,<4",
+    "responses>=0.25.5,<1",
+    "ruff>=0.9.2,<1",
+    "taskipy>=1.14.1,<2",
+    "types-pyyaml>=6.0.12.20250809,<7",
+    "types-requests>=2.32.4.20250809,<3",
+]
+
+[project.urls]
+Documentation = "https://github.com/NicolasGrosjean/slide_merger/blob/master/cli/README.md"
+Issues = "https://github.com/NicolasGrosjean/slide_merger/issues"
+Source = "https://github.com/NicolasGrosjean/slide_merger"
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.mypy]
+python_version = "3.14"
+mypy_path=["src"]
+pretty = true
+namespace_packages = false
+exclude=["tests"]
+ignore_missing_imports = true
+follow_untyped_imports = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["cli/tests/"]
+pythonpath = ["cli/src"]
+filterwarnings = [
+    "ignore: np.exceptions.RankWarning",
+]
+norecursedirs = [
+    ".git",
+    ".git-rewrite",
+    ".mypy_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".coverage",
+    "__pypackages__",
+    ".ipynb_checkpoints/",
+    ".venv",
+    "dist",
+    "docs",
+    "__pycache__",
+]
+addopts = '''
+    -v
+    --capture=no
+    --showlocals
+    --import-mode=importlib
+    --cov=src
+    --cov-report html
+    --cov-report=term-missing
+    --no-cov-on-fail
+    --cov-branch
+'''
+
+[tool.coverage.run]
+branch = true
+data_file = ".coverage/default_output"
+
+[tool.coverage.html]
+directory = ".coverage/html_output"
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Enable more clear skip
+    "no-coverage",
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+
+
+[tool.pymarkdown]
+plugins.line-length.line_length = 88
+plugins.line-length.heading_line_length = 88
+plugins.line-length.code_block_line_length = 88
+plugins.ul-style.style = "sublist"
+
+[tool.taskipy.tasks]
+main = "PYTHONPATH=$PWD uv run src/main.py"
+test = "PYTHONPATH=$PWD uv run pytest tests/"
+test-windows = "set PYTHONPATH=%CD%/..;%PYTHONPATH%&& uv run pytest tests/"
+format = "uv run ruff format ."
+lint = "uv run ruff check . && ruff format --check --diff ."
+lint-fix = "uv run ruff check . --fix"
+mypy = "uv run mypy --install-types --non-interactive ."
+upgrade = "uv lock --upgrade && uv sync && task test"
+pre-commit = "uv run pre-commit run --all-files"

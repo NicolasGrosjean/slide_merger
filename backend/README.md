@@ -63,7 +63,7 @@ source .venv/bin/activate
 
 ## Configure
 
-**TODO** Configuration net set yet
+**TODO** Configuration not set yet
 
 ## Run
 
