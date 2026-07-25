@@ -1,20 +1,20 @@
 import contextlib
 from io import BytesIO
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from loguru import logger
 from pptx_merger import Merger
 
-if TYPE_CHECKING:
-    from pathlib import Path
+from src.utils.utils import calculate_time_spent
 
 
-class SlideMerger:
+class SlideMergerService:
     """Merge slides from multiple PowerPoint presentations into a single presentation."""
 
     def __init__(self):
         self.__merger = Merger()
 
+    @calculate_time_spent
     def merge(self, input_slides: list[Path], output_path: Path) -> None:
         """Merge slides from the input PowerPoint presentations into a single presentation."""
         src_docs: list[BytesIO] = []

@@ -1,4 +1,4 @@
-# Slide Merger COmmand Line Interface
+# Slide Merger Command Line Interface
 
 > Python CLI of Slide Merger
 

@@ -67,7 +67,14 @@ source .venv/bin/activate
 
 ## Run
 
-**TODO** Main file not done yet
+```bash
+task server
+```
+
+## OpenAPI (Swagger)
+
+If you set `hide_fastapi_docs` to `False`, after running the server,
+you can see the OpenAPI (Swagger) at the url [http://localhost:8899/api/v0/docs](http://localhost:8899/api/v0/docs).
 
 ## Tests
 
