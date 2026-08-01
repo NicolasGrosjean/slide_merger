@@ -7,10 +7,10 @@
         "source.organizeImports": "explicit" //  sometimes duplicate lines, put never or uninstall isort
       }
     },
-    // "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
-    // "python.testing.cwd": "${workspaceFolder}/backend",
-    "python.defaultInterpreterPath": "${workspaceFolder}/cli/.venv/bin/python",
-    "python.testing.cwd": "${workspaceFolder}/cli",
+    "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+    "python.testing.cwd": "${workspaceFolder}/backend",
+    // "python.defaultInterpreterPath": "${workspaceFolder}/cli/.venv/bin/python",
+    // "python.testing.cwd": "${workspaceFolder}/cli",
     "files.exclude": {
         "**/.idea": true,
         "**/__pycache__": true,

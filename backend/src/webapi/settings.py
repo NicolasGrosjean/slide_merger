@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
@@ -24,6 +26,7 @@ class Settings(BaseSettings):
 
     log_level: str = "INFO"
     api: ApiSettings = ApiSettings()
+    root_data_directory: Path = Path()
 
     @classmethod
     def settings_customise_sources(

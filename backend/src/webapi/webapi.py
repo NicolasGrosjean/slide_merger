@@ -7,6 +7,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from loguru import logger
 
+from src.files.files_router import router as files_router
 from src.slide_merger.slide_merger_router import router as slide_merger_router
 from src.utils.utils import set_log_level
 from src.webapi.container import BackendContainer
@@ -27,6 +28,7 @@ def create_webapi(
         description="API for merging slides",
     )
     webapi.include_router(slide_merger_router, prefix="/slide_merger")
+    webapi.include_router(files_router, prefix="/files")
 
     @webapi.exception_handler(RequestValidationError)
     async def validation_exception_handler(request: Request, exc: RequestValidationError):  # noqa: ANN202
