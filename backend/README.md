@@ -63,7 +63,11 @@ source .venv/bin/activate
 
 ## Configure
 
-**TODO** Configuration not set yet
+Copy the template and adapt it
+
+```bash
+cp settings.template.yaml settings.yaml
+```
 
 ## Run
 
