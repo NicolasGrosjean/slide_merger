@@ -31,6 +31,14 @@ source .venv/bin/activate
 .venv\Scripts\activate
 ```
 
+## Configure
+
+Copy the template and adapt it
+
+```bash
+cp settings.template.yaml settings.yaml
+```
+
 ## Run
 
 ```bash

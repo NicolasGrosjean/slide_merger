@@ -1,0 +1,11 @@
+---
+api_client:
+    base_url: http://localhost:8899
+    filenames_endpoint: files/filenames
+    filename_timeout: 5 # seconds
+log_level: INFO
+max_file_suggestion_nb: 5
+slides:
+  - subdirectory: slide_parts/part1
+    name_filter: part1
+    placeholder: placeholder

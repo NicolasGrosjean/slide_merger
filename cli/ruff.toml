@@ -33,6 +33,9 @@ ignore = [
     "FIX002", # Line contains TODO
     "PGH004", # Use specific rule codes when using `ruff: noqa`
     "PLR0913", # Too many arguments in function definition
+    "TC001", # Move standard application import into a type-checking block
+    "TC002", # Move third-party import into a type-checking block
+    "TC003", # Move standard library import into a type-checking block
     "TD002", # Missing author in TODO
     "TD003", # Missing issue link for this TODO
     "TD004", # Missing colon in TODO
