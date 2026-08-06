@@ -1,3 +1,6 @@
+from typing import Self
+
+from pydantic import model_validator
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
@@ -37,11 +40,13 @@ class SlidePartSettings(BaseSettings):
     # Skip searching and use directly this file if provided
     file_name: str | None = None
 
-    def validate(self) -> None:
+    @model_validator(mode="after")
+    def placeholder_or_file_name(self) -> Self:
         """Validate the settings."""
         if not self.placeholder and not self.file_name:
             err_msg = "SlidePartSettings: Either 'placeholder' or 'file_name' must be provided"
             raise ValueError(err_msg)
+        return self
 
 
 class Settings(BaseSettings):
