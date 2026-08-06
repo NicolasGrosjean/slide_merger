@@ -12,7 +12,7 @@ def main() -> None:
     container.wire(packages=[src])
 
     settings = container.settings()
-    logger.info(settings)  # TODO Improve with tabulate
+    logger.info(settings)  # TODO Improve with tabulate but make tabulate optional
 
     server = uvicorn.Server(
         uvicorn.Config(

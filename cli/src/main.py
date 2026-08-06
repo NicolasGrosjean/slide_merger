@@ -6,7 +6,7 @@ from src.utils import set_log_level
 
 settings = Settings()
 set_log_level(settings.log_level)
-logger.debug(settings)  # TODO Improve with tabulate
+logger.debug(settings)  # TODO Improve with tabulate but make tabulate optional
 
 fs = FileSelector(filenames_url=settings.api_client.filenames_url, timeout=settings.api_client.filename_timeout)
 slides: list[str] = []

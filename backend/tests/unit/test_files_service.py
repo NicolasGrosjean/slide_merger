@@ -40,7 +40,7 @@ class TestGetAvailableFileNames:
     ):
         input_sub_directory = "../outside_root"
 
-        with pytest.raises(ValueError, match="Invalid sub-directory: ../outside_root"):
+        with pytest.raises(ValueError, match=r"Invalid sub-directory: ../outside_root"):
             subject.get_available_file_names(input_root_data_directory, input_sub_directory)
 
     def test_should_raise_error_when_sub_directory_is_not_a_directory(

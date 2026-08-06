@@ -29,6 +29,7 @@ ignore = [
     "ARG002", # Unused method argument
     "C408", # Unnecessary `dict()` call (rewrite as a literal)
     "COM812", # Unused variable
+    "CPY001", # Missing copyright notice at top of file
     "D100", # Missing docstring in public module
     "FIX002", # Line contains TODO
     "PLR0913", # Too many arguments in function definition

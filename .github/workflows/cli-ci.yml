@@ -37,6 +37,10 @@ jobs:
                 cd cli
                 # PWD or GITHUB_WORKSPACE/cli
                 PYTHONPATH=$PWD uv run pytest tests/
+          - name: Audit dependencies
+            run: |
+                cd cli
+                task audit
           - name: Prepare report
             run: |
                 mkdir -p report/coverage

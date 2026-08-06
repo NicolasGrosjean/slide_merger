@@ -15,7 +15,6 @@ classifiers = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "click>=8.4.2,<9",
     "loguru>=0.7.3,<1",
     "prompt-toolkit>=3.0.52,<4",
     "pydantic-settings>=2.14.2,<3",
@@ -26,8 +25,9 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy>=1.14.1,<2",
+    "pip-audit>=2.10.1,<3",
     "pre-commit>=4.1.0,<5",
-    "pytest>=8.3.4,<9",
+    "pytest>=9.0.3,<10",
     "pytest-cov>=6.0.0,<7",
     "pytest-mock>=3.14.0,<4",
     "responses>=0.25.5,<1",
@@ -118,12 +118,13 @@ plugins.line-length.code_block_line_length = 88
 plugins.ul-style.style = "sublist"
 
 [tool.taskipy.tasks]
-main = "PYTHONPATH=$PWD uv run src/main.py"
-test = "PYTHONPATH=$PWD uv run pytest tests/"
-test-windows = "set PYTHONPATH=%CD%/..;%PYTHONPATH%&& uv run pytest tests/"
+audit = "uv run pip-audit --progress-spinner=off"
 format = "uv run ruff format ."
 lint = "uv run ruff check . && ruff format --check --diff ."
 lint-fix = "uv run ruff check . --fix"
+main = "PYTHONPATH=$PWD uv run src/main.py"
 mypy = "uv run mypy --install-types --non-interactive ."
-upgrade = "uv lock --upgrade && uv sync && task test"
 pre-commit = "uv run pre-commit run --all-files"
+test = "PYTHONPATH=$PWD uv run pytest tests/"
+test-windows = "set PYTHONPATH=%CD%/..;%PYTHONPATH%&& uv run pytest tests/"
+upgrade = "uv lock --upgrade && uv sync && task test"

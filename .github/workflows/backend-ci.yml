@@ -37,6 +37,10 @@ jobs:
                 cd backend
                 # PWD or GITHUB_WORKSPACE/backend
                 PYTHONPATH=$PWD uv run pytest tests/
+          - name: Audit dependencies
+            run: |
+                cd backend
+                task audit
           - name: Prepare report
             run: |
                 mkdir -p report/coverage

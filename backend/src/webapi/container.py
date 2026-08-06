@@ -8,7 +8,7 @@ from src.webapi.settings import Settings
 class BackendContainer(containers.DeclarativeContainer):
     """Dependency injection container for the application."""
 
-    settings = providers.Singleton(lambda: Settings())
+    settings = providers.Singleton(Settings)
 
-    files_service = providers.Singleton(lambda: FilesService())
-    slide_merger_service = providers.Singleton(lambda: SlideMergerService())
+    files_service = providers.Singleton(FilesService)
+    slide_merger_service = providers.Singleton(SlideMergerService)
