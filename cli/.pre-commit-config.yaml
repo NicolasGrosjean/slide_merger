@@ -61,6 +61,7 @@ repos:
     hooks:
       - id: pymarkdown
         types: [markdown]
+        exclude: Licence.md
 
 # YAML
   - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
@@ -91,3 +92,10 @@ repos:
         language: system
         pass_filenames: false
         types: [python]
+
+# Security
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.9.4
+    hooks:
+      - id: bandit
+        exclude: tests/

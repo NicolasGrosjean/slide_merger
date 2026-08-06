@@ -15,7 +15,7 @@ jobs:
         steps:
           - uses: actions/checkout@v4
 
-      # https://docs.astral.sh/uv/guides/integration/github/
+          # https://docs.astral.sh/uv/guides/integration/github/
           - name: Install uv
             uses: astral-sh/setup-uv@v6
           - name: Set up Python
