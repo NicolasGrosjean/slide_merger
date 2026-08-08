@@ -40,6 +40,7 @@ jobs:
           - name: Audit dependencies
             run: |
                 cd cli
+                source .venv/bin/activate
                 task audit
           - name: Prepare report
             run: |
