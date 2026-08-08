@@ -15,6 +15,8 @@ class ApiClientSettings(BaseSettings):
     base_url: str = "http://localhost:8899"
     filenames_endpoint: str = "files/filenames"
     filename_timeout: int = 5
+    slide_merge_endpoint: str = "http://localhost:8899/slide_merger/merge"
+    slide_merge_timeout: int = 60
 
     @property
     def filenames_url(self) -> str:

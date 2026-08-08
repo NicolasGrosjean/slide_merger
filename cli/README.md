@@ -42,8 +42,12 @@ cp settings.template.yaml settings.yaml
 ## Run
 
 ```bash
-task main
+task main output.pptx
 ```
+
+After filling all the asked slides,
+you get the result in `data/output.pptx`
+(or other path according settings ans parameter in CLI).
 
 ## Tests
 

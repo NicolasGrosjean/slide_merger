@@ -17,8 +17,6 @@ class FileSelector:
     def interactive_select_file(self, slide_part_settings: SlidePartSettings, max_file_suggestion_nb: int) -> str:
         """Interactively select a file name from the given sub-directory with name filtering."""
         files = self._get_file_names(slide_part_settings.subdirectory, slide_part_settings.name_filter)
-        if slide_part_settings.placeholder:
-            files.append(slide_part_settings.placeholder)
         completer = FuzzyCompleter(files, max_value_nb=max_file_suggestion_nb)
         session: PromptSession = PromptSession(completer=completer)
 
@@ -27,7 +25,11 @@ class FileSelector:
         res = session.prompt(description + query)
         if res not in files:
             logger.warning(f"Selected file '{res}' is not in the available files list. Using placeholder instead.")
-            res = slide_part_settings.placeholder
+            if slide_part_settings.placeholder is None:
+                err_msg = f"No placeholder provided for the selected slide part: {slide_part_settings}"
+                logger.error(err_msg)
+                raise ValueError(err_msg)
+            return slide_part_settings.placeholder
         return f"{slide_part_settings.subdirectory}/{res}"
 
     def _get_file_names(self, sub_directory: str, name_filter: str | None) -> list[str]:
@@ -39,5 +41,8 @@ class FileSelector:
             },
             timeout=self.timeout,
         )
-        manage_request_error(r)
-        return r.json()
+        try:
+            manage_request_error(r)
+            return r.json()
+        except requests.HTTPError:
+            return []
