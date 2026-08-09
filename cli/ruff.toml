@@ -47,8 +47,12 @@ unfixable = []
 
 [lint.per-file-ignores]
 "**/tests/**" = [
+    "ANN001", # Missing type annotation for function
+    "ANN002", # Missing type annotation for `*args`
+    "ANN003", # Missing type annotation for `**kwargs`
     "ANN201", # Missing return type annotation for public function
     "ANN202", # Missing return type annotation for private function
+    "ARG001", # Unused function argument
     "D101", # Missing docstring in public class
     "D102", # Missing docstring in public method
     "D103", # Missing docstring in public function
