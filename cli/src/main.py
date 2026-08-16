@@ -28,7 +28,7 @@ def main(output_path: str) -> None:
             slides.append(res)
     logger.debug(f"Selected files: {slides}")
     sm = SlideMerger(
-        slide_merge_url=settings.api_client.slide_merge_endpoint, timeout=settings.api_client.slide_merge_timeout
+        slide_merge_url=settings.api_client.slide_merge_url, timeout=settings.api_client.slide_merge_timeout
     )
     sm.merge_slides(input_slides=slides, output_file_name=output_path)
 

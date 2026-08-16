@@ -1,7 +1,8 @@
 ---
 api:
-    host: localhost
+    # host: 0.0.0.0 # Docker container
+    host: localhost # Running locally
     port: 8899
     hide_fastapi_docs: false
 log_level: INFO
-root_data_directory: .
+root_data_directory: ./data

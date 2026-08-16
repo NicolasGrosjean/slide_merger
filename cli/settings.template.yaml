@@ -3,6 +3,8 @@ api_client:
     base_url: http://localhost:8899
     filenames_endpoint: files/filenames
     filename_timeout: 5 # seconds
+    slide_merge_endpoint: slide_merger/merge
+    slide_merge_timeout: 60 # seconds
 log_level: INFO
 max_file_suggestion_nb: 5
 slides:

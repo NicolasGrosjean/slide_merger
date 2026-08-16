@@ -661,6 +661,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/77/c1/6e422f34e569cf8e18df68d1939c81c099d2b61e4f7d9621c8a77560799c/pydantic_settings-2.14.2-py3-none-any.whl", hash = "sha256:a20c97b37910b6550d5ea50fbcc2d4187defe58cd57070b73863d069419c9440", size = 61715, upload-time = "2026-06-19T13:44:55.02Z" },
 ]
 
+[package.optional-dependencies]
+yaml = [
+    { name = "pyyaml" },
+]
+
 [[package]]
 name = "pygments"
 version = "2.20.0"
@@ -871,7 +876,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "loguru" },
     { name = "prompt-toolkit" },
-    { name = "pydantic-settings" },
+    { name = "pydantic-settings", extra = ["yaml"] },
     { name = "rapidfuzz" },
     { name = "requests" },
 ]
@@ -895,7 +900,7 @@ dev = [
 requires-dist = [
     { name = "loguru", specifier = ">=0.7.3,<1" },
     { name = "prompt-toolkit", specifier = ">=3.0.52,<4" },
-    { name = "pydantic-settings", specifier = ">=2.14.2,<3" },
+    { name = "pydantic-settings", extras = ["yaml"], specifier = ">=2.14.2,<3" },
     { name = "rapidfuzz", specifier = ">=3.14.5,<4" },
     { name = "requests", specifier = ">=2.32.4,<3" },
 ]

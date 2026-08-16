@@ -1,0 +1,16 @@
+.env
+.env.*
+**/.env
+**/.env.*
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/__pycache__/
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+__pycache__/

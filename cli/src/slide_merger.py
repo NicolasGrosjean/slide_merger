@@ -20,3 +20,4 @@ class SlideMerger:
         }
         response = requests.post(self.slide_merge_url, json=request_data, timeout=self.timeout)
         manage_request_error(response)
+        logger.info(f"Slides merged successfully into {output_file_name}")

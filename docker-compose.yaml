@@ -1,0 +1,31 @@
+---
+services:
+    backend:
+        build:
+            context: backend
+            dockerfile: Dockerfile
+        environment:
+          - HOST=0.0.0.0
+          - ROOT_DATA_DIRECTORY=/data
+        networks:
+          - backend_network
+        ports:
+          - 8899:8899
+        volumes:
+          - ./data:/data
+
+    cli:
+        build:
+            context: cli
+            dockerfile: Dockerfile
+        depends_on:
+          - backend
+        environment:
+          - API_BASE_URL=http://backend:8899
+        networks:
+          - backend_network
+        volumes:
+          - ./cli/settings.yaml:/app/settings.yaml
+
+networks:
+    backend_network:
