@@ -110,13 +110,6 @@ exclude_lines = [
     "if __name__ == .__main__.:",
 ]
 
-
-[tool.pymarkdown]
-plugins.line-length.line_length = 88
-plugins.line-length.heading_line_length = 88
-plugins.line-length.code_block_line_length = 88
-plugins.ul-style.style = "sublist"
-
 [tool.taskipy.tasks]
 audit = "uv run pip-audit --progress-spinner=off"
 format = "uv run ruff format ."
