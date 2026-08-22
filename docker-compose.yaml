@@ -1,9 +1,7 @@
 ---
 services:
     backend:
-        build:
-            context: backend
-            dockerfile: Dockerfile
+        image: docker.io/nicolasgrosjean38/slide_merger_backend:0.0.1
         environment:
           - HOST=0.0.0.0
           - ROOT_DATA_DIRECTORY=/data
@@ -15,9 +13,7 @@ services:
           - ./data:/data
 
     cli:
-        build:
-            context: cli
-            dockerfile: Dockerfile
+        image: docker.io/nicolasgrosjean38/slide_merger_cli:0.0.1
         depends_on:
           - backend
         environment:

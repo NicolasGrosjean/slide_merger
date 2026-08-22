@@ -18,12 +18,20 @@ All theses components can also be run with [docker compose](docker-compose.yaml)
 
 ### User mode
 
-**TODO:** Make it
+```bash
+docker-compose up
+
+# In another terminal
+docker exec -it slide_merger_cli_1 bash
+uv run src/main.py output.pptx
+```
 
 ### Developer mode
 
 ```bash
-docker-compose up --build --force-recreate
+docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build --force-recreate
+
+# In another terminal
 docker exec -it slide_merger_cli_1 bash
 uv run src/main.py output.pptx
 ```

@@ -1,0 +1,13 @@
+---
+services:
+    backend:
+        image: slide_merger_backend:dev
+        build:
+            context: backend
+            dockerfile: Dockerfile
+
+    cli:
+        image: slide_merger_cli:dev
+        build:
+            context: cli
+            dockerfile: Dockerfile
