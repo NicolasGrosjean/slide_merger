@@ -1,7 +1,9 @@
 ---
 services:
     backend:
+        container_name: slide_merger_backend
         image: docker.io/nicolasgrosjean38/slide_merger_backend:0.0.1
+        user: 0:0   # TODO Fix volume mount write permission issue to remove this
         environment:
           - HOST=0.0.0.0
           - ROOT_DATA_DIRECTORY=/data
@@ -13,6 +15,7 @@ services:
           - ./data:/data
 
     cli:
+        container_name: slide_merger_cli
         image: docker.io/nicolasgrosjean38/slide_merger_cli:0.0.1
         depends_on:
           - backend
