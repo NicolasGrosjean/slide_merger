@@ -13,6 +13,7 @@
     "python.testing.cwd": "${workspaceFolder}/cli",
     "files.exclude": {
         "**/.idea": true,
+        "**/angular": true,
         "**/__pycache__": true,
         "**/.pytest_cache": true,
         "**/test-reports": true,
@@ -21,7 +22,9 @@
         "**/.mypy_cache": true,
         "**/.ruff_cache": true,
         "**/*.egg-info": true,
-        "**/htmlcov": true
+        "**/htmlcov": true,
+        "**/node_modules": true,
+        "**/dist": true
     },
     "python.testing.pytestArgs": [
       "tests"
