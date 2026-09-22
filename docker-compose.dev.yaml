@@ -11,3 +11,9 @@ services:
         build:
             context: cli
             dockerfile: Dockerfile
+
+    frontend:
+        image: slide_merger_frontend:dev
+        build:
+            context: frontend
+            dockerfile: Dockerfile

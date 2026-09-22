@@ -2,7 +2,7 @@
 services:
     backend:
         container_name: slide_merger_backend
-        image: docker.io/nicolasgrosjean38/slide_merger_backend:0.0.1
+        image: docker.io/nicolasgrosjean38/slide_merger_backend:0.0.2
         user: 0:0   # TODO Fix volume mount write permission issue to remove this
         environment:
           - HOST=0.0.0.0
@@ -17,7 +17,7 @@ services:
 
     cli:
         container_name: slide_merger_cli
-        image: docker.io/nicolasgrosjean38/slide_merger_cli:0.0.1
+        image: docker.io/nicolasgrosjean38/slide_merger_cli:0.0.2
         depends_on:
           - backend
         environment:
@@ -26,6 +26,19 @@ services:
           - backend_network
         volumes:
           - ./cli/settings.yaml:/app/settings.yaml
+
+    frontend:
+        container_name: slide_merger_frontend
+        image: docker.io/nicolasgrosjean38/slide_merger_frontend:0.0.2
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        depends_on:
+          - backend
+        ports:
+          - 4200:80
+        networks:
+          - backend_network
 
 networks:
     backend_network:

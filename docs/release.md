@@ -5,7 +5,7 @@
 Create a tag with the following commands
 
 ```bash
-export SLIDE_MERGER_VERSION=0.0.1
+export SLIDE_MERGER_VERSION=0.0.2
 git tag $SLIDE_MERGER_VERSION
 git push origin $SLIDE_MERGER_VERSION
 ```
@@ -30,11 +30,13 @@ docker login docker.io -u nicolasgrosjean38
 Build and push images
 
 ```bash
-export SLIDE_MERGER_VERSION="0.0.1"
+export SLIDE_MERGER_VERSION="0.0.2"
 docker build -t docker.io/nicolasgrosjean38/slide_merger_backend:$SLIDE_MERGER_VERSION backend/
 docker push docker.io/nicolasgrosjean38/slide_merger_backend:$SLIDE_MERGER_VERSION
 docker build -t docker.io/nicolasgrosjean38/slide_merger_cli:$SLIDE_MERGER_VERSION cli/
 docker push docker.io/nicolasgrosjean38/slide_merger_cli:$SLIDE_MERGER_VERSION
+docker build -t docker.io/nicolasgrosjean38/slide_merger_frontend:$SLIDE_MERGER_VERSION frontend/
+docker push docker.io/nicolasgrosjean38/slide_merslide_merger_frontendger_cli:$SLIDE_MERGER_VERSION
 ```
 
 ## Delete a tag
