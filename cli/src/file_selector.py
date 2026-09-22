@@ -3,7 +3,7 @@ from loguru import logger
 from prompt_toolkit import PromptSession
 
 from src.fuzzy_completer import FuzzyCompleter
-from src.settings import SlidePartSettings
+from src.slide_part_settings import SlidePartSettings
 from src.utils import manage_request_error
 
 

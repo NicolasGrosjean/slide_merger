@@ -6,3 +6,7 @@ api:
     hide_fastapi_docs: false
 log_level: INFO
 root_data_directory: ./data
+slides:
+  - subdirectory: slide_parts/part1
+    name_filter: part1
+    placeholder: placeholder

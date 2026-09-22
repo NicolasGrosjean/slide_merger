@@ -1,0 +1,12 @@
+{
+  "/files": {
+    "target": "http://localhost:8899",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/slide_merger": {
+    "target": "http://localhost:8899",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

@@ -5,6 +5,7 @@ from loguru import logger
 from src.file_selector import FileSelector
 from src.settings import Settings
 from src.slide_merger import SlideMerger
+from src.slide_part_settings import SlidePartSettingsClient
 from src.utils import set_log_level
 
 
@@ -14,9 +15,14 @@ def main(output_path: str) -> None:
     set_log_level(settings.log_level)
     logger.debug(settings)  # TODO Improve with tabulate but make tabulate optional
 
+    spsc = SlidePartSettingsClient(
+        slide_part_settings_url=settings.api_client.config_url, timeout=settings.api_client.config_timeout
+    )
+    slide_parts = spsc.get_slide_part_settings()
+    logger.info(f"Settings have {len(slide_parts)} slide parts")
     fs = FileSelector(filenames_url=settings.api_client.filenames_url, timeout=settings.api_client.filename_timeout)
     slides: list[str] = []
-    for slide_part in settings.slides:
+    for slide_part in slide_parts:
         if slide_part.file_name:
             logger.debug(f"Using provided file name: {slide_part.file_name}")
             slides.append(f"{slide_part.subdirectory}/{slide_part.file_name}")

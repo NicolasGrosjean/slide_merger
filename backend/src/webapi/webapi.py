@@ -4,6 +4,7 @@ from dependency_injector.wiring import Provide, inject
 from fastapi import FastAPI, Request, status
 from fastapi.concurrency import asynccontextmanager
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from loguru import logger
 
@@ -26,6 +27,13 @@ def create_webapi(
         settings,
         title="Slide Merger API",
         description="API for merging slides",
+    )
+    webapi.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.api.cors_origins,
+        allow_credentials=False,
+        allow_methods=["GET", "POST"],
+        allow_headers=["Content-Type"],
     )
     webapi.include_router(slide_merger_router, prefix="/slide_merger")
     webapi.include_router(files_router, prefix="/files")

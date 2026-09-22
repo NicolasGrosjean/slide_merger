@@ -8,7 +8,7 @@ This project is split into
 
 - [Python Backend](backend/README.md)
 - [Python CLI](cli/README.md)
-- FrontEnd (**TODO**)
+- [Angular Frontend](frontend/README.md)
 
 Click on the links above to run these components individually
 

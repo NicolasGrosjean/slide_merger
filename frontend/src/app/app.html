@@ -1,0 +1,80 @@
+<div class="page-shell">
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Slide Merger</p>
+      <p class="lede">Choose the slides for each part of the celebration, then create one presentation.</p>
+    </div>
+    <div class="part-count" aria-label="Configured slide parts">
+      <strong>{{ slideParts().length }}</strong>
+      <span>configured parts</span>
+    </div>
+  </header>
+
+  <main>
+    @if (configState() === 'loading') {
+      <section class="notice" aria-live="polite">Loading the slide library...</section>
+    } @else if (configState() === 'error') {
+      <section class="notice notice-error" role="alert">{{ errorMessage() }}</section>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <section class="selector-list" formArrayName="slideSelections" aria-label="Slide selections">
+          @for (part of slideParts(); track $index) {
+            @if (!part.file_name) {
+              <article class="selector-row">
+                <div class="selector-number" aria-hidden="true">{{ ($index + 1).toString().padStart(2, '0') }}</div>
+                <div class="selector-content">
+                  <label [for]="'slide-' + $index">{{ part.description || part.subdirectory }}</label>
+                  <p class="selector-meta">Select a file from {{ part.subdirectory }}</p>
+                  <div class="file-picker">
+                    <input
+                      class="file-input"
+                      [id]="'slide-' + $index"
+                      [formControlName]="$index"
+                      [attr.aria-label]="'Search or choose ' + (part.description || part.subdirectory)"
+                      [attr.list]="'file-options-' + $index"
+                      placeholder="Search or choose a file"
+                      autocomplete="off"
+                      (input)="updateSearch($index, $any($event.target).value)"
+                    />
+                    <datalist [id]="'file-options-' + $index">
+                      @for (fileName of filteredFileOptions($index); track fileName) {
+                        <option [value]="fileName">
+                          {{ isPlaceholder($index, fileName) ? 'Use placeholder · ' : '' }}{{ fileName }}
+                        </option>
+                      }
+                    </datalist>
+                    <span class="option-count">{{ filteredFileOptions($index).length }} files</span>
+                  </div>
+                  @if (slideSelections.at($index).touched && slideSelections.at($index).invalid) {
+                    <p class="field-error">Choose a slide before continuing.</p>
+                  }
+                </div>
+              </article>
+            }
+          }
+        </section>
+
+        <section class="finish-panel">
+          <div>
+            <p class="eyebrow">Output</p>
+            <label for="output-file-name">Presentation filename</label>
+            <input id="output-file-name" type="text" formControlName="outputFileName" autocomplete="off" />
+            @if (form.controls.outputFileName.touched && form.controls.outputFileName.invalid) {
+              <p class="field-error">Use a valid .pptx filename without path separators.</p>
+            }
+          </div>
+          <button type="submit" [disabled]="isSubmitting() || form.invalid">
+            {{ isSubmitting() ? 'Creating presentation...' : 'Create presentation' }}
+          </button>
+        </section>
+      </form>
+    }
+
+    @if (statusMessage()) {
+      <p class="notice notice-success" role="status">{{ statusMessage() }}</p>
+    }
+    @if (errorMessage() && configState() === 'ready') {
+      <p class="notice notice-error" role="alert">{{ errorMessage() }}</p>
+    }
+  </main>
+</div>
