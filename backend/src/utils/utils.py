@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 import sys
 import time
 from collections.abc import Callable
@@ -17,9 +17,7 @@ def calculate_time_spent(function: Callable) -> Callable:
         start = time.time()
         result = function(*args, **kwargs)
         end = time.time()
-        logger.info(
-            f"Total time of the execution of {function.__qualname__}: {datetime.timedelta(seconds=end - start)}"
-        )
+        logger.info(f"Total time of the execution of {function.__qualname__}: {dt.timedelta(seconds=end - start)}")
         return result
 
     return wrapper

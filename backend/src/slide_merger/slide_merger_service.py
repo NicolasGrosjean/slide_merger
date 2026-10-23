@@ -19,6 +19,7 @@ class SlideMergerService:
         """Merge slides from the input PowerPoint presentations into a single presentation."""
         src_docs: list[BytesIO] = []
         merged = None
+        logger.debug(f"Starting merge of following files {input_slides}")
         try:
             src_docs = [BytesIO(slide.read_bytes()) for slide in input_slides]
             logger.info(f"Merging {len(input_slides)} slides into {output_path}")

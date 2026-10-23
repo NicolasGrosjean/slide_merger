@@ -3,7 +3,7 @@ import responses
 from pytest_mock import MockerFixture
 
 from src.file_selector import FileSelector
-from src.settings import SlidePartSettings
+from src.slide_part_settings import SlidePartSettings
 
 
 class FakeSession:
