@@ -30,9 +30,6 @@ services:
     frontend:
         container_name: slide_merger_frontend
         image: docker.io/nicolasgrosjean38/slide_merger_frontend:0.0.2
-        build:
-            context: ./frontend
-            dockerfile: Dockerfile
         depends_on:
           - backend
         ports:
