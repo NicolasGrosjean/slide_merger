@@ -19,30 +19,57 @@
     } @else {
       <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
         <section class="selector-list" formArrayName="slideSelections" aria-label="Slide selections">
-          @for (part of slideParts(); track $index) {
+          @for (part of slideParts(); track $index; let partIndex = $index) {
             @if (!part.file_name) {
               <article class="selector-row">
-                <div class="selector-number" aria-hidden="true">{{ visiblePartNumber($index) }}</div>
+                <div class="selector-number" aria-hidden="true">{{ visiblePartNumber(partIndex) }}</div>
                 <div class="selector-content">
-                  <label [for]="'slide-' + $index">{{ part.description || part.subdirectory }}</label>
+                  <label [for]="'slide-' + partIndex">{{ part.description || part.subdirectory }}</label>
                   <p class="selector-meta"><span class="directory-mark" aria-hidden="true"></span>{{ part.subdirectory }}</p>
                   <div class="file-picker">
                     <input
                       class="file-input"
-                      [id]="'slide-' + $index"
-                      [formControlName]="$index"
+                      [id]="'slide-' + partIndex"
+                      [formControlName]="partIndex"
                       [attr.aria-label]="'Search or choose ' + (part.description || part.subdirectory)"
-                      [attr.list]="'file-options-' + $index"
+                      role="combobox"
+                      aria-autocomplete="list"
+                      [attr.aria-expanded]="activeSearchIndex() === partIndex"
+                      [attr.aria-controls]="'file-options-' + partIndex"
+                      [attr.aria-activedescendant]="activeSearchIndex() === partIndex && activeOptionIndex() >= 0 ? 'file-option-' + partIndex + '-' + activeOptionIndex() : null"
                       placeholder="Search the slide library"
                       autocomplete="off"
-                      (input)="updateSearch($index, $any($event.target).value)"
+                      (focus)="openSuggestions(partIndex)"
+                      (blur)="closeSuggestions(partIndex)"
+                      (keydown)="handleSearchKeydown($event, partIndex)"
+                      (input)="updateSearch(partIndex, $any($event.target).value)"
                     />
-                    <datalist [id]="'file-options-' + $index">
-                      @for (fileName of filteredFileOptions($index); track fileName) {
-                        <option [value]="fileName"></option>
+                    @if (activeSearchIndex() === partIndex) {
+                      <div
+                        class="suggestions"
+                        [id]="'file-options-' + partIndex"
+                        role="listbox"
+                        [attr.aria-label]="'Available files for ' + (part.description || part.subdirectory)"
+                      >
+                        @for (fileName of filteredFileOptions(partIndex); track fileName; let optionIndex = $index) {
+                          <div
+                            class="suggestion-option"
+                            [class.is-active]="activeOptionIndex() === optionIndex"
+                            [class.is-selected]="slideSelections.at(partIndex).value === fileName"
+                            [id]="'file-option-' + partIndex + '-' + optionIndex"
+                            role="option"
+                            [attr.aria-selected]="slideSelections.at(partIndex).value === fileName"
+                            (mousedown)="$event.preventDefault()"
+                            (click)="selectFile(partIndex, fileName)"
+                          >
+                            {{ fileName }}
+                          </div>
+                        } @empty {
+                          <div class="suggestion-empty" role="status">No matching files</div>
+                        }
+                      </div>
                       }
-                    </datalist>
-                    <span class="option-count">{{ filteredFileOptions($index).length }} files</span>
+                    <span class="option-count" aria-live="polite">{{ filteredFileOptions(partIndex).length }} matches</span>
                   </div>
                 </div>
               </article>

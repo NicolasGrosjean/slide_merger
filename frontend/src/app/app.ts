@@ -15,6 +15,8 @@ export class App implements OnInit {
   protected readonly slideParts = signal<SlidePartConfig[]>([]);
   protected readonly fileOptions = signal<string[][]>([]);
   protected readonly searchTerms = signal<string[]>([]);
+  protected readonly activeSearchIndex = signal<number | null>(null);
+  protected readonly activeOptionIndex = signal(-1);
   protected readonly configState = signal<'loading' | 'ready' | 'error'>('loading');
   protected readonly isSubmitting = signal(false);
   protected readonly statusMessage = signal('');
@@ -41,14 +43,56 @@ export class App implements OnInit {
   }
 
   protected filteredFileOptions(index: number): string[] {
-    const query = (this.searchTerms()[index] ?? '').trim().toLocaleLowerCase();
-    return (this.fileOptions()[index] ?? []).filter((fileName) => fileName.toLocaleLowerCase().includes(query));
+    const query = this.normalizeSearchText(this.searchTerms()[index] ?? '');
+    return (this.fileOptions()[index] ?? []).filter((fileName) => this.normalizeSearchText(fileName).includes(query));
   }
 
   protected updateSearch(index: number, value: string): void {
     const terms = [...this.searchTerms()];
     terms[index] = value;
     this.searchTerms.set(terms);
+    this.activeSearchIndex.set(index);
+    this.activeOptionIndex.set(-1);
+  }
+
+  protected openSuggestions(index: number): void {
+    this.activeSearchIndex.set(index);
+    this.activeOptionIndex.set(-1);
+  }
+
+  protected closeSuggestions(index: number): void {
+    if (this.activeSearchIndex() === index) {
+      this.activeSearchIndex.set(null);
+      this.activeOptionIndex.set(-1);
+    }
+  }
+
+  protected handleSearchKeydown(event: KeyboardEvent, index: number): void {
+    const optionCount = this.filteredFileOptions(index).length;
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.activeSearchIndex.set(index);
+      this.activeOptionIndex.update((current) => Math.min(current + 1, optionCount - 1));
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.activeSearchIndex.set(index);
+      this.activeOptionIndex.update((current) => Math.max(current - 1, optionCount > 0 ? 0 : -1));
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      const selectedOption = this.filteredFileOptions(index)[this.activeOptionIndex()];
+      if (this.activeSearchIndex() === index && selectedOption) {
+        this.selectFile(index, selectedOption);
+      }
+    } else if (event.key === 'Escape') {
+      this.closeSuggestions(index);
+    }
+  }
+
+  protected selectFile(index: number, fileName: string): void {
+    this.slideSelections.at(index).setValue(fileName);
+    this.slideSelections.at(index).markAsDirty();
+    this.updateSearch(index, fileName);
+    this.closeSuggestions(index);
   }
 
   protected submit(): void {
@@ -121,6 +165,14 @@ export class App implements OnInit {
       return fileName;
     }
     return `${part.subdirectory}/${fileName}`;
+  }
+
+  private normalizeSearchText(value: string): string {
+    return value
+      .replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'")
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase();
   }
 
   private downloadFile(file: Blob, fileName: string): void {
