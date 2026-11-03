@@ -25,6 +25,7 @@ jobs:
                 component:
                   - backend
                   - cli
+                  - frontend
         env:
             IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/slide_merger_${{ matrix.component }}
             IMAGE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}

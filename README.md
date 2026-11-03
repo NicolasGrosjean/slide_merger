@@ -8,7 +8,7 @@ This project is split into
 
 - [Python Backend](backend/README.md)
 - [Python CLI](cli/README.md)
-- FrontEnd (**TODO**)
+- A vibe-coded [Angular Frontend](frontend/README.md)
 
 Click on the links above to run these components individually
 
@@ -20,21 +20,17 @@ All theses components can also be run with [docker compose](docker-compose.yaml)
 
 ```bash
 docker-compose up
-
-# In another terminal
-docker exec -it slide_merger_cli bash
-uv run src/main.py output.pptx
 ```
+
+Open the [application with a web browser](http://localhost:4200/)
 
 ### Developer mode
 
 ```bash
 docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build --force-recreate
-
-# In another terminal
-docker exec -it slide_merger_cli bash
-uv run src/main.py output.pptx
 ```
+
+Open the [application with a web browser](http://localhost:4200/)
 
 ### Stop containers
 
