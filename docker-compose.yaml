@@ -7,6 +7,12 @@ services:
         environment:
           - HOST=0.0.0.0
           - ROOT_DATA_DIRECTORY=/data
+        healthcheck:
+            test: [CMD, wget, --quiet, --tries=1, http://127.0.0.1:8899/ready]
+            interval: 30s
+            timeout: 10s
+            start_period: 30s
+            retries: 3
         networks:
           - backend_network
         ports:
@@ -19,7 +25,8 @@ services:
         container_name: slide_merger_cli
         image: docker.io/nicolasgrosjean38/slide_merger_cli:0.0.2
         depends_on:
-          - backend
+            backend:
+                condition: service_healthy
         environment:
           - API_BASE_URL=http://backend:8899
         networks:
@@ -31,7 +38,13 @@ services:
         container_name: slide_merger_frontend
         image: docker.io/nicolasgrosjean38/slide_merger_frontend:0.0.2
         depends_on:
-          - backend
+            backend:
+                condition: service_healthy
+        healthcheck:
+            test: [CMD, wget, --quiet, --tries=1, --spider, http://127.0.0.1/ping]
+            interval: 30s
+            timeout: 1s
+            retries: 3
         ports:
           - 4200:80
         networks:

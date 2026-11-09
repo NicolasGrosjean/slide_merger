@@ -17,6 +17,8 @@ npm start
 
 Open [http://localhost:4200](http://localhost:4200). The frontend uses the slide definitions from `cli/settings.yaml` through the backend configuration endpoint.
 
+The frontend container healthcheck requests `/ping` through Nginx, which proxies the request to the backend. The container is healthy only while the backend ping endpoint is reachable.
+
 ## Testing
 
 Run the frontend unit tests with:

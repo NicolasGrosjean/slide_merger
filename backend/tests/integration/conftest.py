@@ -11,7 +11,7 @@ from src.webapi.webapi import create_webapi
 
 @pytest.fixture
 def settings(tmp_path: Path) -> Settings:
-    return Settings(log_level="DEBUG", root_data_directory=tmp_path)
+    return Settings(log_level="DEBUG", root_data_directory=tmp_path, slides=[])
 
 
 @pytest.fixture
